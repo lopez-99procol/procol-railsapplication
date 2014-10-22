@@ -6,7 +6,7 @@ gem 'rails', '4.1.6'
 # Use sqlite3 as the database for Active Record
 gem 'pg'
 gem 'rails_12factor', group: :production
-gem 'procol_rails'
+gem 'unicorn'
 # gem 'sqlite3-ruby', '1.2.5', group: :development
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'

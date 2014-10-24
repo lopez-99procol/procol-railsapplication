@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  get 'users/register'
+
+  get 'users/login'
+
+  get 'welcome/index'
+
   resources :widgets
 
   # The priority is based upon order of creation: first created -> highest priority.

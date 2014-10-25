@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe UserController do
   render_views
@@ -15,4 +15,4 @@ describe UserController do
       expect(response).to have_selector("title", :content => "Login")
     end
   end
-  
+end

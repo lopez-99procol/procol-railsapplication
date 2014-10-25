@@ -1,13 +1,12 @@
 require 'typhoeus'
 require 'json'
 
-class Users
+class Client
   class << self; attr_accessor :base_uri end
 
   def self.find(id)
     request = "#{base_uri}/api/v1/users/#{id}"
     response = Typhoeus::Request.get(request)
-    #puts "response.code: #{response.code}"
     if response.code == 200
       JSON.parse(response.body)["user"]
     elsif response.code == 404

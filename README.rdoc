@@ -1,28 +1,8 @@
-== README
+# procol Rails application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The procol Rails application is the portal which uses the procol webservices.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+procol Rails application is configured to run without a database configuration.
+If you wanna set up a Rails application without database config follow [these](http://stackoverflow.com/questions/821251/how-to-configure-ruby-on-rails-with-no-database) instructions.
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.

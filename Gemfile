@@ -43,3 +43,7 @@ gem 'spring',        group: :development
 gem "rspec-rails", :group => [:development, :test]
 gem 'json'
 gem 'typhoeus'
+
+group :test do
+  gem 'factory_girl_rails', '1.0'
+end

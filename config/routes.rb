@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   get 'users/register'
 
   get 'users/login'
+  
+  get 'users/show'
+  
+  get 'users/:id', to: 'users#show'
 
   get 'welcome/index'
 

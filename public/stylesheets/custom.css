@@ -17,6 +17,25 @@ header img {
   background: #fff;
 }
 
+footer {
+  text-align: center;
+  margin-top: 10px;
+  width: 710px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+footer nav {
+  float: none;
+}
+
+section {
+  margin-top: 1em;
+  font-size: 120%;
+  padding: 20px;
+  background: #fff;
+}
+
 section h1 {
   font-size: 200%;
   text-align: center;

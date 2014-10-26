@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
-  get 'users/register'
+  get 'users/signup'
 
-  get 'users/login'
-  
+  get 'users/signin'
+
+  get '/home',      to: 'pages#home',     as: 'home'
+  get '/contact',   to: 'pages#contact',  as: 'contact'
+  get '/help',      to: 'pages#help',     as: 'help'
+
+  get '/signup',    to: 'users#signup',   as: 'signup'
+  get '/signin',    to: 'users#signin',   as: 'signin'
+  get '/about',     to: 'pages#about',    as: 'about'
+  get '/procol',    to: 'pages#procol',   as: 'procol'
   get 'users/show'
-  
   get 'users/:id', to: 'users#show'
-
   get 'welcome/index'
 
   resources :widgets
@@ -16,7 +22,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
 
-  root 'welcome#index'
+  root to: 'pages#home'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

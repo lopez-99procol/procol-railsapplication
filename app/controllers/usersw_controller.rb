@@ -1,8 +1,8 @@
 require_dependency 'client.rb'
 
 class UsersController < ApplicationController
+
   def initialize
-    super
     Client.base_uri = "http://localhost:4567"
   end
   
@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def signin
     @title = "Sign In"
   end
-
+  
   def show
     @title = "Show User"
     

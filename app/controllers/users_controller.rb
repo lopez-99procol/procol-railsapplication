@@ -15,7 +15,12 @@ class UsersController < ApplicationController
     params.delete :commit
     puts "going to create user with params #{params.to_json}"
     @userresponse= Client.create(params)
-    #return @userresponse
+    puts "userresponse #{@userresponse}"
+    if @userresponse.code == 200
+      user = JSON.parse(@userresponse.body)
+      redirect_to :controller => 'users', :action => 'show', :id => user['id']
+    end
+    return @userresponse
   end
 
   def signin

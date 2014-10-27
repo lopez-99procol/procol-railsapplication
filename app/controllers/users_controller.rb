@@ -8,6 +8,14 @@ class UsersController < ApplicationController
   
   def signup
     @title = "Sign Up"
+    params.delete :utf8
+    params.delete :authenticity_token
+    params.delete :action
+    params.delete :controller
+    params.delete :commit
+    puts "going to create user with params #{params.to_json}"
+    @userresponse= Client.create(params)
+    #return @userresponse
   end
 
   def signin

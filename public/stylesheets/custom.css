@@ -105,6 +105,9 @@ nav ul li a:hover {
   text-decoration: underline;
 }
 
+div.field div.actions y{
+  margin-bottom: 10px;
+}
 /* Round corners */
 .round {
   -moz-border-radius: 10px;

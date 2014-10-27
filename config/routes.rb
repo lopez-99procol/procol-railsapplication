@@ -1,18 +1,18 @@
 Rails.application.routes.draw do
-  get 'users/signup'
-
-  get 'users/signin'
-
-  get '/home',      to: 'pages#home',     as: 'home'
-  get '/contact',   to: 'pages#contact',  as: 'contact'
-  get '/help',      to: 'pages#help',     as: 'help'
-
-  get '/signup',    to: 'users#signup',   as: 'signup'
-  get '/signin',    to: 'users#signin',   as: 'signin'
-  get '/about',     to: 'pages#about',    as: 'about'
-  get '/procol',    to: 'pages#procol',   as: 'procol'
-  get 'users/show'
-  get 'users/:id', to: 'users#show'
+  # named routes
+  get 'home',             to: 'pages#home',     as: 'home'
+  get 'contact',          to: 'pages#contact',  as: 'contact'
+  get 'help',             to: 'pages#help',     as: 'help'
+  get 'signup',           to: 'users#signup',   as: 'signup'
+  post 'users/signup',     to: 'users#signup',   as: 'userssignup'
+  get 'signin',           to: 'users#signin',   as: 'signin'
+  get 'about',            to: 'pages#about',    as: 'about'
+  get 'procol',           to: 'pages#procol',   as: 'procol'
+  get 'users/:id',        to: 'users#show',     as: 'user'
+  get 'users/show/:id',   to: 'users#show',     as: 'showuser'
+  
+  
+  #get 'users/signup',     to: 'users#signup',   as: 'signupuser'
   get 'welcome/index'
 
   resources :widgets

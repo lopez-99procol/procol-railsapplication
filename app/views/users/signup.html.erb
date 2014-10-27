@@ -1,2 +1,27 @@
 <h1><%= title %></h1>
-<p>Find me in app/views/users/signup.html.erb</p>
+<%= form_tag(userssignup_path, :method => 'post', :multipart => true) do %>
+  <div class="field">
+    name:<br>
+    <%= text_field_tag 'name' %><br>
+  </div>
+  <div class="field">
+    email:<br>
+    <%= text_field_tag 'email' %><br>
+  </div>
+  <div class="field">
+    bio:<br>
+    <%= text_field_tag 'bio' %><br>
+  </div>
+  <div class="field">
+    password:<br>
+    <%= password_field_tag 'password' %><br>
+  </div>
+  <div class="field">
+    password confirmation:<br>
+    <%= password_field_tag 'password_confirmation' %><br>
+  </div>
+  <div class="actions">
+    <%= submit_tag "Sign up" %>
+  </div>
+
+<% end %>

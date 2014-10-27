@@ -31,7 +31,8 @@ class Client
   end
 
   def self.create attributes
-    response = Typhoeus::Request.post("#{base_uri}/api/v1/users", :body => attributes.to_json )
+    body = attributes.to_json
+    response = Typhoeus::Request.post("#{base_uri}/api/v1/users", :body => body)
     if response.code == 200
       JSON.parse(response.body)['user']
     elsif response.code == 400

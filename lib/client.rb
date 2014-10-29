@@ -25,7 +25,22 @@ class Client
     request = "#{base_uri}/api/v1/users/name/#{name}"
     response = Typhoeus::Request.get(request)
     if response.code == 200
-      JSON.parse(response.body)
+      json_hash = response.body
+      load_user(json_hash)
+    elsif response.code == 404
+      nil
+    else
+      raise response.body
+    end
+    response
+  end
+
+  def self.find_by_email(email)
+    request = "#{base_uri}/api/v1/users/name/#{email}"
+    response = Typhoeus::Request.get(request)
+    if response.code == 200
+      json_hash = response.body
+      load_user(json_hash)
     elsif response.code == 404
       nil
     else
@@ -77,8 +92,8 @@ class Client
     response # response.code == 200
   end
   
-  def self.signin(id, password)
-    response = Typhoeus::Request.post("#{base_uri}/api/v1/users/#{id}/sessions", :body => {:password => password}.to_json)
+  def self.signin(email, password)
+    response = Typhoeus::Request.post("#{base_uri}/api/v1/users/#{email}/sessions", :body => {:email => email, :password => password}.to_json)
     if response.success? # response.code == 200
       JSON.parse(response.body)
     elsif response.code == 400

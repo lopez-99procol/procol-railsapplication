@@ -1,11 +1,17 @@
 Rails.application.routes.draw do
+  #get 'sessions/new'
+  
+  # ressources
+  #resources :users
+  resources :sessions, :only => [:new, :create, :destroy]
+
   # named routes
   get 'home',             to: 'pages#home',     as: 'home'
   get 'contact',          to: 'pages#contact',  as: 'contact'
   get 'help',             to: 'pages#help',     as: 'help'
   get 'signup',           to: 'users#signup',   as: 'signup'
   post 'users/signup',     to: 'users#signup',   as: 'userssignup'
-  get 'signin',           to: 'users#signin',   as: 'signin'
+  get 'signin',           to: 'session#new', as: 'signin'
   get 'about',            to: 'pages#about',    as: 'about'
   get 'procol',           to: 'pages#procol',   as: 'procol'
   get 'users/:id',        to: 'users#show',     as: 'user'

@@ -1,3 +1,5 @@
+require_dependency 'client.rb'
+
 class User 
   include ActiveModel::Serializers::JSON
   include ActiveModel::Validations
@@ -19,6 +21,15 @@ class User
     
   def to_s
     self.to_json
+  end
+  
+  def self.authenticate(email, password)
+    test = false
+    puts "email[#{email}] password[#{password}]"
+    test = (email.length > 0) || false
+    test = (password.length > 0) || false
+
+    return test
   end
     
 end

@@ -1,23 +1,23 @@
 <h1><%= title %></h1>
 <%= form_tag(userssignup_path, :method => 'post', :multipart => true) do %>
   <div class="field">
-    name:<br>
+    <%= label_tag 'name'%><br>
     <%= text_field_tag 'name' %><br>
   </div>
   <div class="field">
-    email:<br>
+    <%= label_tag 'email'%><br>
     <%= text_field_tag 'email' %><br>
   </div>
   <div class="field">
-    bio:<br>
+    <%= label_tag 'bio'%><br>
     <%= text_field_tag 'bio' %><br>
   </div>
   <div class="field">
-    password:<br>
+    <%= label_tag 'password'%><br>
     <%= password_field_tag 'password' %><br>
   </div>
   <div class="field">
-    password confirmation:<br>
+    <%= label_tag 'password confirmation'%><br>
     <%= password_field_tag 'password_confirmation' %><br>
   </div>
   <div class="actions">

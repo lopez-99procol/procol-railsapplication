@@ -1,6 +1,5 @@
 require 'typhoeus'
 require 'json'
-require 'User'
 
 class Client
   # Class level

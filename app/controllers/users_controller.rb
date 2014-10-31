@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   attr_accessor :user
   def initialize
     super
-    Client.base_uri = "http://localhost:4567" 
+    Client.base_uri = ENV["SINATRA_BASE_URI"] #"http://localhost:9292" #"http://sinatrausers-procol.rhcloud.com" 
   end
   
   def signup

@@ -25,6 +25,9 @@ class User
   
   def self.authenticate(email, password)
     test = false
+    Client.find_by_email(email)
+    user = Client.user
+    puts "user = #{user.to_s}"
     puts "email[#{email}] password[#{password}]"
     test = (email.length > 0) || false
     test = (password.length > 0) || false

@@ -4,7 +4,6 @@ require 'json'
 class Client
   # Class level
   class << self; attr_accessor :base_uri, :user end
-  @@user = User.new
 
   def self.find(id)
     request = "#{base_uri}/api/v1/users/#{id}"
@@ -35,7 +34,7 @@ class Client
   end
 
   def self.find_by_email(email)
-    request = "#{base_uri}/api/v1/users/name/#{email}"
+    request = "#{base_uri}/api/v1/users/email/#{email}"
     response = Typhoeus::Request.get(request)
     if response.code == 200
       json_hash = response.body
@@ -104,6 +103,7 @@ class Client
   end
   
   def self.load_user(response_body)
+    user = User.new
     
     puts "rb: #{response_body}"
     
@@ -123,8 +123,8 @@ class Client
     # Put the hash back to json string format
     json_data = rb_hash.to_json
     
-    @@user.from_json(json_data)
-    puts "user.to_s = #{@@user.to_s}"
-    
+    user.from_json(json_data)
+    puts "user.to_s = #{user.to_s}"
+    @@user = user
   end
 end

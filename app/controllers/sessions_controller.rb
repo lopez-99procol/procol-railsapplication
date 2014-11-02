@@ -1,25 +1,33 @@
 class SessionsController < ApplicationController
   def new
-    @title = "Sign Up"
+    @title = "Sign in"
   end
   
   def create
-    result = User.authenticate(params[:session][:email],params[:session][:password])
     
-    puts "result = #{result}"
-    
-    if result == false
-      flash.now[:error] = "Invalid email/password combination"
-      
-      @title = "Sign In"
-      render 'new'
+    puts "create.params => #{params}"
+    if params[:session][:email] != "" && params[:session][:password] != ""
+      @user = User.authenticate(params[:session][:email],params[:session][:password])
+      if @user.nil?
+        render_new("Invalid email/password combination")
+      else
+        # sign user in
+        sign_in @user
+        redirect_to :controller => 'users', :action => 'show', :id => @user.id
+      end
     else
-      # sign user in
-      redirect_to user_path :id => 1
+      render_new("Please provide login data")
     end
   end
   
   def destroy
     
   end
+  
+  def render_new(msg)
+    @title = "Sign in"
+    flash.now[:error] = msg
+    render 'new'
+  end
+  
 end

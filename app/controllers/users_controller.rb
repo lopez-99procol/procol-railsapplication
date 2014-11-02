@@ -1,11 +1,5 @@
-require_dependency 'client.rb'
-
 class UsersController < ApplicationController
   attr_accessor :user
-  def initialize
-    super
-    Client.base_uri = ENV["SINATRA_BASE_URI"] #"http://localhost:9292" #"http://sinatrausers-procol.rhcloud.com" 
-  end
   
   def signup
     @title = "Sign Up"
@@ -17,20 +11,25 @@ class UsersController < ApplicationController
       params.delete :controller
       params.delete :commit
       puts "going to create user at #{ENV["SINATRA_BASE_URI"]} with params #{params.to_json}"
-      @userresponse= Client.create(params)
-      puts "userresponse #{@userresponse}"
-      if @userresponse.code == 200
-        user = JSON.parse(@userresponse.body)
-        redirect_to :controller => 'users', :action => 'show', :id => user['id']
+      response = Client.create(params)
+      if response.is_a? Typhoeus 
+        render_new("Could not process request")
+        return
+      end
+      @user = response
+      puts "signup.user #{user}"
+      if !@user.nil?
+        flash[:success]="#{@user.name} successfully registered!"
+        redirect_to :controller => 'users', :action => 'show', :id => @user.id
       elsif
         flash[:error]="Could not create your user."
       end
-      return @userresponse
+      return @user
     end
   end
 
   def signin
-    @title = "Sign In"
+    @title = "Sign in"
     
   end
 
@@ -38,13 +37,20 @@ class UsersController < ApplicationController
     @title = "Show User"
     
     return nil if params[:id].nil?
-    @userresponse= Client.find(params[:id])
-    @userdata = parse_response(@userresponse)
+    response= Client.find(params[:id])
+    return nil if response.is_a? Typhoeus
+    @user = response
     puts "user => #{@userdata.to_s}"
-    return @userdata
+    return @user
   end
   
   def parse_response(response)
     return JSON.parse(response.body)
+  end
+  
+  def render_new(msg)
+    @title = "Sign up"
+    flash.now[:error] = msg
+    render 'signup'
   end
 end

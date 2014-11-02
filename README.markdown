@@ -11,10 +11,11 @@ This variable is used to point to the right SINATRA webservice server (either lo
 ``
 # local
 export SINATRA_BASE_URI=http://localhost:9292
-rails server
+foreman start web
 
 # heroku
-
-heroku config:get SINATRA_BASE_URI # check if already set
+``
+# check if already set
+heroku config:get SINATRA_BASE_URI 
 heroku config:set SINATRA_BASE_URI=http://sinatrausers-procol.rhcloud.com
 ``

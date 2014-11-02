@@ -46,4 +46,5 @@ gem 'typhoeus'
 
 group :test do
   gem 'factory_girl_rails', '1.0'
+  gem 'capybara'
 end

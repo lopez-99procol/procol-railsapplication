@@ -7,10 +7,11 @@ class Client
 
   def self.find(id)
     request = "#{base_uri}/api/v1/users/#{id}"
+    puts "find.request => #{request}"
     response = Typhoeus::Request.get(request)
     if response.code == 200
       json_hash = response.body
-      load_user(json_hash)
+      return load_user(json_hash)
     elsif response.code == 404
       nil
     else
@@ -24,7 +25,7 @@ class Client
     response = Typhoeus::Request.get(request)
     if response.code == 200
       json_hash = response.body
-      load_user(json_hash)
+      return load_user(json_hash)
     elsif response.code == 404
       nil
     else
@@ -34,12 +35,14 @@ class Client
   end
 
   def self.find_by_email(email)
-    #email = CGI::escape(email)
-    request = "#{base_uri}/api/v1/users/email/:email"
-    response = Typhoeus::Request.get(request)
+    email = CGI::escape(email)
+    request = "#{base_uri}/api/v1/users/email/#{email}"
+    puts "find_by_email.request => #{request}"
+    response = Typhoeus::Request.get("#{base_uri}/api/v1/users/email/#{email}")
+    puts "find_by_mail.response => #{response}, [response.code]= #{response.code}"
     if response.code == 200
       json_hash = response.body
-      load_user(json_hash)
+      return load_user(json_hash)
     elsif response.code == 404
       nil
     else
@@ -50,11 +53,13 @@ class Client
 
   def self.create attributes
     body = attributes.to_json
-    puts "body= #{body}"
-    response = Typhoeus::Request.post("#{base_uri}/api/v1/users", :body => body)
+    puts "create.body= #{body}"
+    request = "#{base_uri}/api/v1/users"
+    puts "create.request => #{request}"
+    response = Typhoeus::Request.post(request, :body => body)
     if response.code == 200
       json_hash = response.body
-      load_user(json_hash)
+      return load_user(json_hash)
     elsif response.code == 400
       nil
     else
@@ -128,5 +133,6 @@ class Client
     user.from_json(json_data)
     puts "user.to_s = #{user.to_s}"
     @@user = user
+    user
   end
 end

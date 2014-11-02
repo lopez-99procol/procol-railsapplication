@@ -15,13 +15,18 @@ RSpec.describe "Users" do
   
   it "should fill a User from_json" do
     @user.from_json(@json_data.to_json)
-    expect(@user.name).to eq(@json_data[:name])
+    expect(@user.firstname).to eq(@json_data[:firstname])
   end
   
   it "should authenticate the user" do
     email = "99centprocol-lopez@gmail.com", 
     password = "whatever"
     expect(User.authenticate(email,password)).to eq(true)
+  end
+  
+  it "user should have a firstname property" do
+    user = User.find(1)
+    expect(user.to_json).to include("firstname")
   end
   
 end

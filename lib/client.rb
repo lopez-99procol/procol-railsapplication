@@ -34,7 +34,8 @@ class Client
   end
 
   def self.find_by_email(email)
-    request = "#{base_uri}/api/v1/users/email/#{email}"
+    #email = CGI::escape(email)
+    request = "#{base_uri}/api/v1/users/email/:email"
     response = Typhoeus::Request.get(request)
     if response.code == 200
       json_hash = response.body
@@ -49,6 +50,7 @@ class Client
 
   def self.create attributes
     body = attributes.to_json
+    puts "body= #{body}"
     response = Typhoeus::Request.post("#{base_uri}/api/v1/users", :body => body)
     if response.code == 200
       json_hash = response.body

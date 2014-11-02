@@ -4,7 +4,7 @@ class User
   include ActiveModel::Serializers::JSON
   include ActiveModel::Validations
   
-  attr_accessor :id, :name, :email, :bio, :password, :password_confirmation, :encrypted_password
+  attr_accessor :id, :name, :firstname, :email, :bio, :password, :password_confirmation, :encrypted_password
   
   validate :name, :email, :password, :password_confirmation, presence: true
   

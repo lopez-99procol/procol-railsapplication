@@ -40,12 +40,12 @@ class User
     end
   end
   
-  def self.authenticate_with_salt(id, cookie_salt)
-    user = response = Client.find_by_email(email)
+  def self.authenticate_with_salt(email, cookie_salt)
+    response = Client.find_by_email(email)
     return nil if response.is_a? Typhoeus
     user = response
     puts "authenticate_with_salt.user = #{user.to_s}"
-    (user && user.salt == cookie.salt) ? user : nil
+    (user && user.salt == cookie_salt) ? user : nil
   end
     
 end

@@ -21,7 +21,8 @@ class SessionsController < ApplicationController
   end
   
   def destroy
-    
+    sign_out
+    redirect_to :controller => :sessions, :action => :new
   end
   
   def render_new(msg)

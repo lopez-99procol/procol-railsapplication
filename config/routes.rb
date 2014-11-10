@@ -6,16 +6,17 @@ Rails.application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
 
   # named routes
-  get 'home',             to: 'pages#home',     as: 'home'
-  get 'contact',          to: 'pages#contact',  as: 'contact'
-  get 'help',             to: 'pages#help',     as: 'help'
-  get 'signup',           to: 'users#signup',   as: 'signup'
-  post 'users/signup',    to: 'users#signup',   as: 'userssignup'
-  get 'signin',           to: 'session#new',    as: 'signin'
-  get 'about',            to: 'pages#about',    as: 'about'
-  get 'procol',           to: 'pages#procol',   as: 'procol'
-  get 'users/:id',        to: 'users#show',     as: 'user'
-  get 'users/show/:id',   to: 'users#show',     as: 'showuser'
+  get 'home',             to: 'pages#home',       as: 'home'
+  get 'contact',          to: 'pages#contact',    as: 'contact'
+  get 'help',             to: 'pages#help',       as: 'help'
+  get 'signup',           to: 'users#signup',     as: 'signup'
+  post 'users/signup',    to: 'users#signup',     as: 'userssignup'
+  get 'signin',           to: 'sessions#new',     as: 'signin'
+  get 'signout',          to: 'sessions#destroy', as: 'signout'
+  get 'about',            to: 'pages#about',      as: 'about'
+  get 'procol',           to: 'pages#procol',     as: 'procol'
+  get 'users/:id',        to: 'users#show',       as: 'user'
+  get 'users/show/:id',   to: 'users#show',       as: 'showuser'
   
   
   #get 'users/signup',     to: 'users#signup',   as: 'signupuser'

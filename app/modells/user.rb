@@ -29,19 +29,24 @@ class User
   
   def self.authenticate(email, password)
     response = Client.find_by_email(email)
-    return nil if response.is_a? Typhoeus
+  rescue RuntimeError => rEx
+    puts "RuntimeError[#{rEx}] occured"
+    user = nil
+    raise RuntimeError, "user: User authentication failed!", caller
+  rescue ArgumentError => aEx
+    puts "user: ArgumentError '#{aEx}' occured"
+    user = nil
+    raise ArgumentError, "Wrong user credentials, authentication failed", caller
+  else
+    puts "went do else instead of rescue"
     user = response
-    puts "authenticate.user = #{user.to_s}"
-    if user.nil?
-       return nil
-    else
-      puts "authenticate.user.email[#{user.email}] authenticate.user.password[#{user.password}]"
-      return user
-    end
+  ensure
+    puts "authenticated user = #{user.class}"
+    return user
   end
   
   def self.authenticate_with_salt(email, cookie_salt)
-    response = Client.find_by_email(email)
+    response = Client.find_by_email(email) or controller.not_found
     return nil if response.is_a? Typhoeus
     user = response
     puts "authenticate_with_salt.user = #{user.to_s}"

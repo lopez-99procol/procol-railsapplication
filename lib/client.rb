@@ -27,9 +27,9 @@ class Client
       json_hash = response.body
       return load_user(json_hash)
     elsif response.code == 404
-      nil
+      raise ArgumentError, "Unknown user with name #{name}"
     else
-      raise response.body
+      raise RuntimeError, "Unknown status!"
     end
     response
   end
@@ -44,9 +44,9 @@ class Client
       json_hash = response.body
       return load_user(json_hash)
     elsif response.code == 404
-      nil
+      raise ArgumentError, "Unknown user with email #{email}", caller
     else
-      raise response.body
+      raise RuntimeError, "Unknown status", caller
     end
     response
   end
@@ -61,7 +61,7 @@ class Client
       json_hash = response.body
       return load_user(json_hash)
     elsif response.code == 400
-      nil
+      raise response
     else
       raise response.body
     end

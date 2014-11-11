@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
     Client.base_uri = ENV["SINATRA_BASE_URI"] #"http://localhost:9292" #"http://sinatrausers-procol.rhcloud.com" 
   end
   
+  def not_found
+    raise ApplicationController::RoutingError.new('Not found!')
+  end
+  
 end

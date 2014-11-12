@@ -27,8 +27,8 @@ class User
     self.to_json
   end
   
-  def self.authenticate(email, password)
-    response = Client.find_by_email(email)
+  def self.authenticate(email, attributes)
+    response = Client.signin(email, attributes)
   rescue RuntimeError => rEx
     puts "RuntimeError[#{rEx}] occured"
     user = nil

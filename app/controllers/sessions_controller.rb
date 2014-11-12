@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   def create
     path = :signin
     msg = "Authentication successfull!"
-    @user = User.authenticate(params[:session][:email],params[:session][:password]) if params[:session][:email] != "" && params[:session][:password] != "" 
+    @user = User.authenticate(params[:session][:email], params) if params[:session][:email] != "" 
   rescue RuntimeError => rEx
     msg = rEx
     puts "create: RuntimeError '#{rEx}' occured"

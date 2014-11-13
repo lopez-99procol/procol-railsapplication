@@ -40,7 +40,7 @@ gem 'spring',        group: :development
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem "rspec-rails", :group => [:development, :test]
+gem 'rspec', '~> 2.0.0', :group => [:development, :test]
 gem 'json'
 gem 'typhoeus'
 

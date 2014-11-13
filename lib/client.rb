@@ -73,6 +73,8 @@ class Client
   # do_request makes the request and the response handling against the sinatrausers-webservice
   def self.do_request(requesturl, verb, attributes)
     user = nil
+    json_attributes = !attributes.nil? ? attributes.to_json  : nil
+    puts "do request[#{requesturl}] for verb[#{verb}] with attributes[#{json_attributes}] "
     case verb
     when 'get'
       response = Typhoeus::Request.get(requesturl)
@@ -86,7 +88,7 @@ class Client
       response = nil
     end
     
-    puts "do_request => #{response}, [response.code]= #{response.code}"
+    puts "get response => #{response}, [response.code]= #{response.code}"
     if !response.nil?
       case response.code
       when 200

@@ -13,8 +13,7 @@ module SessionsHelper
   end
   
   def signed_in?
-    return false if cookies[:remember_token].nil?
-    !self.current_user.nil?
+    return !cookies[:remember_token].nil?
   end
   
   def sign_out

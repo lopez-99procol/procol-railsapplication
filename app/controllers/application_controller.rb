@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
   
   def not_found
-    raise ApplicationController::RoutingError.new('Not found!')
+    render 'shared/4oh4'
   end
   
 end

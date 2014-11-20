@@ -10,7 +10,7 @@ class User
   
   def attributes=(hash)
     hash.each do |key, value|
-      #puts "loading #{key} with #{value}"
+      puts "loading #{key} with #{value}"
       send("#{key}=", value)
     end
   end
@@ -28,7 +28,9 @@ class User
   end
   
   def self.authenticate(email, attributes)
-    response = Client.signin(email, attributes)
+    puts "authenticate user"
+    user = Client.signin(email, attributes)
+    puts "authenticated user[#{user}]"    
   rescue RuntimeError => rEx
     puts "RuntimeError[#{rEx}] occured"
     user = nil
@@ -37,20 +39,25 @@ class User
     puts "user: ArgumentError '#{aEx}' occured"
     user = nil
     raise ArgumentError, "Wrong user credentials, authentication failed", caller
+  rescue Exception => ex
+    puts "Exception '#{ex}' occured"
   else
     puts "went do else instead of rescue"
     user = response
   ensure
-    puts "authenticated user = #{user.class}"
     return user
   end
   
   def self.authenticate_with_salt(email, cookie_salt)
     response = Client.find_by_email(email) or controller.not_found
-    return nil if response.is_a? Typhoeus
+    return nil if !response.is_a? Typhoeus
     user = response
     puts "authenticate_with_salt.user = #{user.to_s}"
     (user && user.salt == cookie_salt) ? user : nil
+  end
+  
+  def navlinks 
+    return {:projects => "http://sinatraprojects-procol.rhcloud.com"}
   end
     
 end

@@ -1,0 +1,8 @@
+<nav class="round">
+  <ul>
+    <% if signed_in? %>
+      <% @user.navlinks.each do |key, value| %>
+      <li><%= link_to value, key %>
+      <% end %>
+    <% end %>
+  </ul>

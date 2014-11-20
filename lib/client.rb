@@ -59,14 +59,14 @@ class Client
     rb_hash.delete("updated_at")
     
     puts
-    puts "hash: #{rb_hash}"
+    #puts "hash: #{rb_hash}"
     
     # Put the hash back to json string format
     json_data = rb_hash.to_json
     
     user.from_json(json_data)
-    puts "user.to_s = #{user.to_s}"
-    @@user = user
+    #puts "user.to_s = #{user.to_s}"
+    @user = user
     user
   end
   
@@ -79,25 +79,25 @@ class Client
     when 'get'
       response = Typhoeus::Request.get(requesturl)
     when 'post'
-      response = Typhoeus::Request.post(requesturl, :body => attributes.to_json)
+      response = Typhoeus::Request.post(requesturl, :body => json_attributes)
     when 'delete'
       response = Typhoeus::Request.delete(requesturl)
     when 'put'
-      response = Typhoeus::Request.put(requesturl, :body => attributes.to_json)
+      response = Typhoeus::Request.put(requesturl, :body => json_attributes)
     else
       response = nil
     end
     
-    puts "get response => #{response}, [response.code]= #{response.code}"
     if !response.nil?
       case response.code
       when 200
         json_hash = response.body
+        puts "get json_hash => #{json_hash}, [response.code]= #{response.code}"
         return load_user(json_hash)
       when 404
-        raise ArgumentError, "Wrong arguments in request #{request}", caller
+        raise ArgumentError, "Wrong arguments! #{response.body}", caller
       else
-        raise RuntimeError, "Unknown #{request}", caller
+        raise RuntimeError, "Unknown error! #{response.body}", caller
       end
     end
     user

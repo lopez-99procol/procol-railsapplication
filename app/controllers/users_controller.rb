@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   attr_accessor :user
   
+  wrap_parameters format: [:json]
+  
   def signup
     @title = "Sign Up"
     puts "params = #{params}"
@@ -10,8 +12,10 @@ class UsersController < ApplicationController
       params.delete :action
       params.delete :controller
       params.delete :commit
-      puts "going to create user at #{ENV["SINATRA_BASE_URI"]} with params #{params.to_json}"
-      response = Client.create(params)
+      #params[:user][:navigation] = {:label => "projects", :link => "http://sinatraprojects-procol.rhcloud.com/"}
+      
+      puts "going to create user at #{ENV["SINATRA_BASE_URI"]} with params #{params}"
+      response = Client.create(users_params)
       if response.is_a? Typhoeus 
         render_new("Could not process request")
         return
@@ -24,7 +28,6 @@ class UsersController < ApplicationController
       elsif
         flash[:error]="Could not create your user."
       end
-      return @user
     end
   end
 
@@ -41,7 +44,12 @@ class UsersController < ApplicationController
     return nil if response.is_a? Typhoeus
     @user = response
     puts "user => #{@userdata.to_s}"
-    return @user
+    #redirect_to :controller => 'users', :action => 'navigation', :id => @user.id
+  end
+  
+  def navigation
+    puts "params = #{params}"
+    
   end
   
   def parse_response(response)
@@ -53,4 +61,9 @@ class UsersController < ApplicationController
     flash.now[:error] = msg
     render 'signup'
   end
+  
+  private
+    def users_params
+      params.require(:user).permit(:name,:firstname,:email,:password,:password_confirmation,:encrypted_password, :salt, navigation: [:label, :link])
+    end
 end

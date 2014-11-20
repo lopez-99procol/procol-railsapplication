@@ -1,32 +1,32 @@
 <h1><%= title %></h1>
-<%= form_tag(userssignup_path, :method => 'post', :multipart => true) do %>
+<%= form_tag(userssignup_path, method: "post") do %>
  <!-- render 'shared/error_messages.html.erb'//-->
   <div class="field">
     <%= label_tag 'name'%><br>
-    <%= text_field_tag 'name' %><br>
+    <%= text_field(:user, :name) %><br>
   </div>
   <div class="field">
     <%= label_tag 'firstname'%><br>
-    <%= text_field_tag 'firstname' %><br>
+    <%= text_field(:user, :firstname) %><br>
   </div>
   <div class="field">
     <%= label_tag 'email'%><br>
-    <%= text_field_tag 'email' %><br>
+    <%= email_field(:user, :email) %><br>
   </div>
   <div class="field">
     <%= label_tag 'bio'%><br>
-    <%= text_field_tag 'bio' %><br>
+    <%= text_field(:user, :bio) %><br>
   </div>
   <div class="field">
     <%= label_tag 'password'%><br>
-    <%= password_field_tag 'password' %><br>
+    <%= password_field(:user, :password) %><br>
   </div>
   <div class="field">
     <%= label_tag 'confirmation'%><br>
-    <%= password_field_tag 'password_confirmation' %><br>
+    <%= password_field(:user, :password_confirmation) %><br>
   </div>
   <div class="actions">
-    <%= submit_tag "Sign up" %>
+    <%= submit_tag("Sign up") %>
   </div>
 
 <% end %>

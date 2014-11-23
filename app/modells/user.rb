@@ -4,7 +4,7 @@ class User
   include ActiveModel::Serializers::JSON
   include ActiveModel::Validations
   
-  attr_accessor :id, :name, :firstname, :email, :bio, :password, :password_confirmation, :encrypted_password, :salt
+  attr_accessor :id, :name, :firstname, :email, :bio, :password, :password_confirmation, :encrypted_password, :salt, :userprofile
   
   validate :name, :email, :password, :password_confirmation, :salt, presence: true
   
@@ -54,12 +54,7 @@ class User
     user = response
     puts "authenticate_with_salt.user = #{user.to_s}"
     (user && user.salt == cookie_salt) ? user : nil
-  end
-  
-  def navlinks 
-    return {:projects => "http://sinatraprojects-procol.rhcloud.com"}
-  end
-    
+  end    
 end
   
   

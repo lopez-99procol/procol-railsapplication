@@ -5,9 +5,13 @@ class SessionsController < ApplicationController
   
   # Create Session method with ExceptionHandling for Runtime and ArgumentError
   def create
+    puts "session.create.params[#{params}]"
+    session = params[:session]
+    email = session[:email]
+    puts "going to authenticate user with email[#{email}] with session[#{session}]"
     path = :signin
     msg = "Authentication successfull!"
-    @user = User.authenticate(params[:session][:email], params[:session]) if params[:session][:email] != "" 
+    @user = User.authenticate(email, session) if email != "" 
   rescue RuntimeError => rEx
     msg = rEx
     puts "create: RuntimeError '#{rEx}' occured"
@@ -20,6 +24,7 @@ class SessionsController < ApplicationController
     if !@user.nil?
       sign_in @user 
       flash[:notice]= msg
+      load_userprofile(@user)
       redirect_to showuser_path(@user.id)
     else
       msg = "User could not be authenticated!"

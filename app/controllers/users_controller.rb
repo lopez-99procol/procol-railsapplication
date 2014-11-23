@@ -3,16 +3,18 @@ class UsersController < ApplicationController
   
   wrap_parameters format: [:json]
   
+  # Route methods
   def signup
     @title = "Sign Up"
     puts "params = #{params}"
     if params[:commit] == "Sign up"
+      #params = strip_params(params)
+      #params[:user][:navigation] = {:label => "projects", :link => "http://sinatraprojects-procol.rhcloud.com/"}
       params.delete :utf8
       params.delete :authenticity_token
       params.delete :action
       params.delete :controller
       params.delete :commit
-      #params[:user][:navigation] = {:label => "projects", :link => "http://sinatraprojects-procol.rhcloud.com/"}
       
       puts "going to create user at #{ENV["SINATRA_BASE_URI"]} with params #{params}"
       response = Client.create(users_params)
@@ -31,6 +33,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def profile
+    params.delete :utf8
+    params.delete :authenticity_token
+    params.delete :action
+    params.delete :controller
+    params.delete :commit
+    puts "profile.params = #{params}"
+    puts "profile to save for = #{params[:user_id]} contains navigations[#{params[:navigations_id]}]"
+    Client.create_users_profile(params)
+  end
+
   def signin
     @title = "Sign in"
     
@@ -47,19 +60,8 @@ class UsersController < ApplicationController
     #redirect_to :controller => 'users', :action => 'navigation', :id => @user.id
   end
   
-  def navigation
-    puts "params = #{params}"
-    
-  end
-  
   def parse_response(response)
     return JSON.parse(response.body)
-  end
-  
-  def render_new(msg)
-    @title = "Sign up"
-    flash.now[:error] = msg
-    render 'signup'
   end
   
   private

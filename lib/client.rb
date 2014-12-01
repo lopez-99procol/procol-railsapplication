@@ -21,15 +21,21 @@ class Client
     puts "find_by_email.request => #{request}"
     self.do_request(request, 'get', nil, "load_user")
   end
+  
+  def self.get_navigation(user_id)
+    request = "#{base_uri}/api/v1/users/#{user_id}/navigation"
+    puts "get_navigation.request => #{request}"
+    self.do_request(request, 'get', nil, "load_navigation")
+  end
 
   def self.create(attributes)
     request = "#{base_uri}/api/v1/users"
     do_request(request, 'post', attributes, "load_user")
   end
   
-  def self.create_users_profile(attributes)
-    request = "#{base_uri}/api/v1/usersprofile"
-    do_request(request, 'post', attributes,  "load_profile")
+  def self.create_navigation(attributes)
+    request = "#{base_uri}/api/v1/users/navigation"
+    do_request(request, 'post', attributes,  "load_navigation")
   end
   
   def self.update(id, attributes)
@@ -75,8 +81,8 @@ class Client
     user
   end
   
-  def self.load_profile(response_body)
-    userprofile = Userprofile.new
+  def self.load_navigation(response_body)
+    navigation = Navigation.new
     
     puts "rb: #{response_body}"
     

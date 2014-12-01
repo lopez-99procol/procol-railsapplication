@@ -40,8 +40,9 @@ class UsersController < ApplicationController
     params.delete :controller
     params.delete :commit
     puts "profile.params = #{params}"
-    puts "profile to save for = #{params[:user_id]} contains navigations[#{params[:navigations_id]}]"
-    Client.create_users_profile(params)
+    navigation_id = params[:navigation_id]
+    puts "profile to save for = #{params[:user_id]} contains navigation[#{navigation_id.to_s}]"
+    Client.create_navigation(params)
   end
 
   def signin

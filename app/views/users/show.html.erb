@@ -5,7 +5,7 @@ user_data["name"] -->
 <p><%= form_tag(usersprofile_path, :method => 'post') do %>
   <div class="field">
     <%= label_tag('navigation')%>
-    <%= select_tag(:navigation_id, options_for_select([['Project',1],['Collaboration',2]]))%>
+    <%= select_tag(:navigation_id, options_for_select([['Project',1],['Collaboration',2]]), :multiple => true)%>
     <%= hidden_field_tag(:user_id, @user.id)%>
   </div>  
   <div>

@@ -36,6 +36,7 @@ class SessionsController < ApplicationController
   def destroy
     sign_out
     flash[:notice]= "See you soon!"
+    @user = nil
     redirect_to signin_path
   end
   

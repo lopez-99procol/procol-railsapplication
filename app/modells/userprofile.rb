@@ -4,7 +4,8 @@ class Userprofile
   include ActiveModel::Serializers::JSON
   include ActiveModel::Validations
 
-  attr_accessor :id, :user_id, :renewaldate
+  ATTRIBUTES = [:id, :user_id, :navigation_id, :renewaldate]
+  attr_accessor *ATTRIBUTES 
   
   def initialize
     super

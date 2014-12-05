@@ -4,9 +4,13 @@ class User
   include ActiveModel::Serializers::JSON
   include ActiveModel::Validations
   
-  attr_accessor :id, :name, :firstname, :email, :bio, :password, :password_confirmation, :encrypted_password, :salt, :userprofile
+  attr_accessor :id, :name, :firstname, :email, :bio, :password, :password_confirmation, :encrypted_password, :salt, :userprofile, :navigation
   
   validate :name, :email, :password, :password_confirmation, :salt, presence: true
+  
+  def initialize
+    @navigation = []
+  end
   
   def attributes=(hash)
     hash.each do |key, value|
@@ -25,6 +29,12 @@ class User
   
   def to_s
     self.to_json
+  end
+  
+  def show_navigation
+    @navigation.each do |i|
+      puts "i.to_s[#{i.to_s}]"
+    end
   end
   
   def self.authenticate(email, attributes)

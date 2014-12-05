@@ -19,4 +19,8 @@ class PagesController < ApplicationController
     @title = "99ProCol"
   end
   
+  def demo
+    @title = "Demo"
+  end
+  
 end

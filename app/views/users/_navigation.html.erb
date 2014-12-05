@@ -1,8 +1,10 @@
 <nav class="round">
   <ul>
     <% if signed_in? %>
-      <% @user.navlinks.each do |key, value| %>
-      <li><%= link_to value, key %>
+      <% @user.navigation.each do |i| %>
+      <li><%= i.to_s %>
       <% end %>
+    <% else %>
+      <li><%= link_to "Demo", demo_path %></li>
     <% end %>
   </ul>

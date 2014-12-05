@@ -24,8 +24,16 @@ class SessionsController < ApplicationController
     if !@user.nil?
       sign_in @user 
       flash[:notice]= msg
-      load_userprofile(@user)
-      redirect_to showuser_path(@user.id)
+      navigations = Client.get_navigation(@user.id) if !@user.nil?
+      puts "navigation = #{navigations}"
+      @user.navigation = navigations
+      puts "user already filled with navigation #{@user.navigation}" if !@user.navigation.nil?
+      @user.show_navigation
+      if !navigations.nil?
+        redirect_to showuser_path(@user.id)
+      else
+        redirect_to usernavigation_path(@user.id)
+      end
     else
       msg = "User could not be authenticated!"
       flash[:alert]= msg

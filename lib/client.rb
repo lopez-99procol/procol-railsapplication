@@ -82,7 +82,7 @@ class Client
   end
   
   def self.load_navigation(response_body)
-    navigation = Navigation.new
+    navigations = []
     
     puts "rb: #{response_body}"
     
@@ -90,22 +90,22 @@ class Client
     rb_hash = JSON.parse(response_body)
     
     # Print JSON result
-    rb_hash.each { |pair| print pair}
+    rb_hash.each do |pair| 
     
-    # Modify JSON Hash
-    #rb_hash.delete("created_at")
-    #rb_hash.delete("updated_at")
+      # Modify JSON Hash
+      #rb_hash.delete("created_at")
+      #rb_hash.delete("updated_at")
     
-    puts
-    #puts "hash: #{rb_hash}"
+      puts
+      puts "load_navigation pair[#{pair}]"
     
-    # Put the hash back to json string format
-    json_data = rb_hash.to_json
+      # Put the hash back to json string format
+      json_data = pair.to_json
     
-    userprofile.from_json(json_data)
-    #puts "user.to_s = #{user.to_s}"
-    @userprofile = userprofile
-    userprofile
+      #puts "user.to_s = #{user.to_s}"
+      navigations.push(Navigation.new().from_json(json_data))
+    end
+    navigations
   end
   
   # do_request makes the request and the response handling against the sinatrausers-webservice

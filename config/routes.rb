@@ -18,7 +18,9 @@ Rails.application.routes.draw do
   get 'users/:id',        to: 'users#show',             as: 'user'
   get 'users/show/:id',   to: 'users#show',             as: 'showuser'
   get 'error/404',        to: 'application#not_found',  as: 'fourohfour'
-  post 'users/profile',   to: 'users#profile',          as: 'usersprofile'
+  post 'users/profile',   to: 'users#profile',          as: 'userprofile'
+  get 'users/navigation', to: 'users#navigation',       as: 'usernavigation'
+  get 'demo',             to: 'pages#demo',             as: 'demo'
   
   
   #get 'users/signup',     to: 'users#signup',   as: 'signupuser'

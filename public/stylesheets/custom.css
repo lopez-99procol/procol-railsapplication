@@ -105,6 +105,40 @@ nav ul li a:hover {
   text-decoration: underline;
 }
 
+unav {
+  float: left;
+}
+
+unav {
+  background-color: white;
+  padding: 0 0.7em;
+  white-space: nowrap;
+}
+
+unav ul {
+  margin: 0;
+  padding: 0;
+}
+
+unav ul li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 0.2em 0;
+}
+
+unav ul li a {
+  padding: 0 5px;
+  font-weight: bold;
+}
+
+unav ul li a:visited {
+  color: #09c;
+}
+
+unav ul li a:hover {
+  text-decoration: underline;
+}
+
 div.field div.actions y{
   margin-bottom: 10px;
 }

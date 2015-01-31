@@ -59,12 +59,22 @@ class User
   end
   
   def self.authenticate_with_salt(email, cookie_salt)
-    response = Client.find_by_email(email) or controller.not_found
-    return nil if !response.is_a? Typhoeus
-    user = response
-    puts "authenticate_with_salt.user = #{user.to_s}"
-    (user && user.salt == cookie_salt) ? user : nil
+    flag = !email.nil? && !cookie_salt.nil?
+    puts "authenticate_with_salt.flag(#{flag})"
+    if flag
+      response = Client.find_by_email(email) or controller.not_found
+      user = response
+      navigations = Client.get_navigation(user.id) if !user.nil?
+      puts "navigation = #{navigations}"
+      user.navigation = navigations
+      puts "User->authenticate_with_salt.user(#{user.to_s})"
+      user = (user && user.salt == cookie_salt) ? user : nil
+    else
+      user = nil
+    end
+    user
   end    
+  
 end
   
   

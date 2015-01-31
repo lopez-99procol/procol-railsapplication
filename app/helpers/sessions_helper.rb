@@ -1,34 +1,48 @@
 module SessionsHelper
-  def sign_in(user)
-    cookies.permanent.signed[:remember_token] = [user.email, user.salt]
-    self.current_user = user
+  
+  def current_user
+    cUser = !@current_user.nil? ? @current_user : user_from_remember_token
+    puts "cUser = #{cUser}"
+    puts "getCurrent_user.cUser(#{cUser}) "
+    #  @current_user ||= user_from_remember_token
+    cUser
   end
   
   def current_user=(user)
+    puts "2. setCurrent_user(#{user})"
     @current_user = user
   end
   
-  def current_user
-    @current_user ||= user_from_remember_token
+  # Helper method to sign_in current user
+  def sign_in(user)
+    # save current_user in remember_token cookie
+    self.current_user = user 
+    cookies.permanent.signed[:remember_token] = [user.email, user.salt]  
   end
   
   def signed_in?
-    return !cookies[:remember_token].nil?
+    #!cookies[:remember_token].nil?
+    flag = !current_user.nil?
+    puts "3. signed_in?(#{flag})"
+    flag
   end
   
   def sign_out
     cookies.delete(:remember_token)
-    current_user= nil
+  #  cookies.delete(:current_user)
   end
   
   private
   
     def user_from_remember_token
+      puts "going to load user from #{remember_token}"
       User.authenticate_with_salt(*remember_token)
     end
     
     def remember_token
-      cookies.signed[:remember_token] || [nil,nil]
+      user_data = cookies.signed[:remember_token] || [nil,nil]
+      puts "get user data from remember token #{user_data}"
+      user_data
     end
     
     

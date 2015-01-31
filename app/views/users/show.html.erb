@@ -1,4 +1,5 @@
 <!-- user_data = JSON.parse(@user.body) 
-user_data["name"] -->
-<h1>Welcome, <%= @user.firstname %>!</h1>
-<p>Have fun using our service!</p>
+user_data["name"] 
+
+-->
+<h1><%= "Welcome, #{current_user.firstname} #{current_user.name} you are successfully logged in!" %></h1>

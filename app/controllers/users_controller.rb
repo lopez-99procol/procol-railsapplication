@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  attr_accessor :user
+  
+  attr_accessor :signup
   
   wrap_parameters format: [:json]
   
@@ -22,11 +23,11 @@ class UsersController < ApplicationController
         render_new("Could not process request")
         return
       end
-      @user = response
+      @signup = response
       puts "signup.user #{user}"
-      if !@user.nil?
-        flash[:success]="#{@user.name} successfully registered!"
-        redirect_to :controller => 'users', :action => 'show', :id => @user.id
+      if !@signup.nil?
+        flash[:success]="#{@signup.name} successfully registered!"
+        redirect_to :controller => 'users', :action => 'show', :id => @signup.id
       elsif
         flash[:error]="Could not create your user."
       end
@@ -45,20 +46,8 @@ class UsersController < ApplicationController
     Client.create_navigation(params)
   end
 
-  def signin
-    @title = "Sign in"
-    
-  end
-
   def show
     @title = "Show User"
-    
-    return nil if params[:id].nil?
-    response= Client.find(params[:id])
-    return nil if response.is_a? Typhoeus
-    @user = response
-    puts "user => #{@userdata.to_s}"
-    #redirect_to :controller => 'users', :action => 'navigation', :id => @user.id
   end
   
   def parse_response(response)

@@ -1,4 +1,7 @@
 class SessionsController < ApplicationController
+  
+  #class << self; attr_accessor :current_user; attr_reader :current_user; end
+  
   def new
     @title = "Sign in"
   end
@@ -22,13 +25,14 @@ class SessionsController < ApplicationController
     not_found
   else
     if !@user.nil?
-      sign_in @user 
-      flash[:notice]= msg
       navigations = Client.get_navigation(@user.id) if !@user.nil?
       puts "navigation = #{navigations}"
       @user.navigation = navigations
       puts "user already filled with navigation #{@user.navigation}" if !@user.navigation.nil?
       @user.show_navigation
+      puts "1. sign_in(#{@user})"
+      sign_in @user
+      flash[:notice]= msg
       if !navigations.nil?
         redirect_to showuser_path(@user.id)
       else
@@ -38,14 +42,12 @@ class SessionsController < ApplicationController
       msg = "User could not be authenticated!"
       flash[:alert]= msg
       redirect_to signin_path
-    end    
+    end   
+    @user 
   end
   
   def destroy
     sign_out
-    flash[:notice]= "See you soon!"
-    @user = nil
-    redirect_to signin_path
+    redirect_to :controller => :sessions, :action => :new
   end
-  
 end

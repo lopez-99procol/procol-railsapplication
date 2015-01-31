@@ -1,5 +1,23 @@
 <header>
-  <%= link_to image_tag("/images/ProCol_logo.png", :alt => "Project-Collaboration", :class => "round", :width => 160, :hight => 64), root_path%>
+  <!--<%= link_to image_tag("/images/ProCol_logo.png", :alt => "Project-Collaboration", :class => "round", :width => 160, :hight => 64), root_path%>//-->
+  <unav class="round">
+    <ul>
+      
+      <% if signed_in? %>
+        <% if !current_user.nil? %>
+            <% if !current_user.navigation.nil?%>
+              <% current_user.navigation.each do |n| %>
+                <li><%= link_to n.label, n.link %>
+              <%end%>
+            <%end %>
+        <%else%>
+            <%= "user is nil" %>
+        <%end%>
+      <%else%>
+        <li>Demo</li>
+      <% end %>      
+    </ul>
+  </unav>
   <nav class="round">
     <ul>
       <li><%= link_to "Home", root_path %></li>
@@ -10,4 +28,5 @@
       <li><%= link_to "Sign in", signin_path %></li>
       <% end %>
     </ul>
+  </nav>
 </header>

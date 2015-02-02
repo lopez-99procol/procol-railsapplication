@@ -32,6 +32,17 @@ module SessionsHelper
   #  cookies.delete(:current_user)
   end
   
+  def check_navigation(user)
+    nav_valid = @user.navigation.length > 0 ? true : false
+    puts "signup.nav_valid(#{nav_valid})"
+    if nav_valid
+      puts
+      redirect_to showuser_path(user.id)
+    else
+      redirect_to usernavigation_path(user.id)
+    end
+  end
+  
   private
   
     def user_from_remember_token

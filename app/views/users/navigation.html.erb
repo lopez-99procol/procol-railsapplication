@@ -1,10 +1,10 @@
-<h1>Welcome, <%= @user.firstname %>!</h1>
+<h1>Welcome, <%= current_user.firstname %>!</h1>
 <p>Choose wise which features you want to use</p>
-<p><%= form_tag(usersprofile_path, :method => 'post') do %>
+<p><%= form_tag(userprofile_path, :method => 'post') do %>
   <div class="field">
     <%= label_tag('navigation')%>
     <%= select_tag(:navigation_id, options_for_select([['Project',1],['Collaboration',2]]), :multiple => true)%>
-    <%= hidden_field_tag(:user_id, @user.id)%>
+    <%= hidden_field_tag(:user_id, current_user.id)%>
   </div>  
   <div>
   <%= submit_tag('Choose')%>    

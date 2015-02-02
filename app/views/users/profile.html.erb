@@ -1,1 +1,14 @@
 <h1>Welcome to your profile.
+<% if signed_in? %>
+  <% if !current_user.nil? %>
+      <% if !current_user.navigation.nil?%>
+        <% current_user.navigation.each do |n| %>
+          <li><%= link_to n.label, n.link %>
+        <%end%>
+      <%end %>
+  <%else%>
+      <%= "user is nil" %>
+  <%end%>
+<%else%>
+  <li>Demo</li>
+<% end %>

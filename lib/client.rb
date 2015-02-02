@@ -35,7 +35,7 @@ class Client
   
   def self.create_navigation(attributes)
     request = "#{base_uri}/api/v1/users/navigation"
-    do_request(request, 'post', attributes,  "load_navigation")
+    do_request(request, 'post', attributes, nil) #"load_navigation" - JSON Parser Error
   end
   
   def self.update(id, attributes)
@@ -110,6 +110,7 @@ class Client
   
   # do_request makes the request and the response handling against the sinatrausers-webservice
   def self.do_request(requesturl, verb, attributes, method)
+    debug = "do_request->"
     user = nil
     json_attributes = !attributes.nil? ? attributes.to_json  : nil
     puts "do request[#{requesturl}] for verb[#{verb}] with attributes[#{json_attributes}] "
@@ -130,8 +131,10 @@ class Client
       case response.code
       when 200
         json_hash = response.body
-        puts "get json_hash => #{json_hash}, [response.code]= #{response.code}"
-        return self.method(method).call(json_hash)
+        puts debug+"json_hash(#{json_hash}), [response.code]= #{response.code}"
+        puts debug+"json_attributes(#{json_attributes})"
+        #return self.method(method).call(json_hash)
+        return self.method(method).call(json_hash) if !method.nil?
       when 404
         raise ArgumentError, "Wrong arguments! #{response.body}", caller
       else

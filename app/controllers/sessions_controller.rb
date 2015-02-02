@@ -33,11 +33,7 @@ class SessionsController < ApplicationController
       puts "1. sign_in(#{@user})"
       sign_in @user
       flash[:notice]= msg
-      if !navigations.nil?
-        redirect_to showuser_path(@user.id)
-      else
-        redirect_to usernavigation_path(@user.id)
-      end
+      check_navigation(@user)
     else
       msg = "User could not be authenticated!"
       flash[:alert]= msg

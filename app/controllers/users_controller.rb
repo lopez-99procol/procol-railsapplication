@@ -23,11 +23,15 @@ class UsersController < ApplicationController
         render_new("Could not process request")
         return
       end
-      @signup = response
-      puts "signup.user #{user}"
-      if !@signup.nil?
-        flash[:success]="#{@signup.name} successfully registered!"
-        redirect_to :controller => 'users', :action => 'show', :id => @signup.id
+      @user = response
+      navigations = Client.get_navigation(@user.id)
+      puts "navigation = #{navigations}"
+      @user.navigation = navigations
+      sign_in @user
+       puts "signup.user #{@user}"
+      if !@user.nil?
+        flash[:success]="#{@user.name} #{@user.firstname} successfully registered!"
+        check_navigation @user
       elsif
         flash[:error]="Could not create your user."
       end

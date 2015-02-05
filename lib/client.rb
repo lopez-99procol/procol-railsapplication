@@ -40,6 +40,7 @@ class Client
   
   def self.update(id, attributes)
     request = "#{base_uri}/api/v1/users/#{id}"
+    puts "update_user.request => #{request}"
     do_request(request, 'put', attributes, "load_user")
   end
 

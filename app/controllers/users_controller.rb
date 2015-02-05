@@ -48,8 +48,18 @@ class UsersController < ApplicationController
     navigation_id = params[:navigation_id]
     puts "profile to save for = #{params[:user_id]} contains navigation[#{navigation_id.to_s}]"
     Client.create_navigation(params)
+    @user = current_user
   end
 
+  def profile_load
+    @user = current_user
+  end
+  
+  def profile_save
+    puts "users_params= #{users_params}"
+    Client.update(current_user.id, users_params)
+  end
+  
   def show
     @title = "Show User"
   end
@@ -58,8 +68,17 @@ class UsersController < ApplicationController
     return JSON.parse(response.body)
   end
   
+  def clear_params(params)
+    params.delete :utf8
+    params.delete :authenticity_token
+    params.delete :action
+    params.delete :controller
+    params.delete :commit
+    params
+  end
+  
   private
     def users_params
-      params.require(:user).permit(:name,:firstname,:email,:password,:password_confirmation,:encrypted_password, :salt, navigation: [:label, :link])
+      params.require(:user).permit(:name,:firstname,:email,:bio,:password,:password_confirmation,:encrypted_password,:salt,navigation: [:label, :link])
     end
 end

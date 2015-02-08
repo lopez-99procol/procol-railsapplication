@@ -1,5 +1,8 @@
 class UsersController < ApplicationController
   
+  before_filter :authenticate, :only => [:profile_load, :profile_save]
+  before_filter :correct_user, :only => [:profile_load, :profile_save]
+  
   attr_accessor :signup
   
   wrap_parameters format: [:json]
@@ -80,5 +83,14 @@ class UsersController < ApplicationController
   private
     def users_params
       params.require(:user).permit(:name,:firstname,:email,:bio,:password,:password_confirmation,:encrypted_password,:salt,navigation: [:label, :link])
+    end
+    
+    def authenticate
+      deny_access unless signed_in?
+    end
+    
+    def correct_user
+      @user = User.find(params[:id])
+      redirect_to(root_path) unless current_user?(@user)
     end
 end

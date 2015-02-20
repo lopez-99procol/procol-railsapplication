@@ -4,7 +4,7 @@ class User
   include ActiveModel::Serializers::JSON
   include ActiveModel::Validations
   
-  attr_accessor :id, :name, :firstname, :email, :bio, :password, :password_confirmation, :encrypted_password, :salt, :userprofile, :navigation
+  attr_accessor :id, :name, :firstname, :email, :bio, :password, :password_confirmation, :encrypted_password, :salt, :userprofile, :navigation, :microposts
   
   validate :name, :email, :password, :password_confirmation, :salt, presence: true
   
@@ -64,9 +64,18 @@ class User
     if flag
       response = Client.find_by_email(email) or controller.not_found
       user = response
-      navigations = Client.get_navigation(user.id) if !user.nil?
-      puts "navigation = #{navigations}"
-      user.navigation = navigations
+      if !user.nil?
+        
+        puts "authentication_with_salt:user.id = #{user.id}"
+        
+        navigations = Client.get_navigation(user.id)
+        puts "authentication_with_salt:get_navigation(#{user.id}) = #{navigations}"
+        user.navigation = navigations
+      
+        microposts = Client.get_microposts(user.id)
+        puts "authentication_with_salt:get_microposts(#{user.id}) = #{microposts}"
+        user.microposts = microposts
+      end
       puts "User->authenticate_with_salt.user(#{user.to_s})"
       user = (user && user.salt == cookie_salt) ? user : nil
     else

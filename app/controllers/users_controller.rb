@@ -63,8 +63,24 @@ class UsersController < ApplicationController
     Client.update(current_user.id, users_params)
   end
   
+  # lädt einen speziellen micropost
+  def microposts
+    @title = "Your news"
+    id = params[:id]
+    puts "microposts:params[#{id}]"
+    @micropost = Client.get_micropost(id)
+    puts "micropots:micropost(#{@micropost})"
+  end
+  
+  # Zeigt die User Daten an und
+  # lädt alle microposts eines Users
   def show
     @title = "Show User"
+    @user = current_user
+    
+    # add pagination
+    @microposts = @user.microposts
+    @title = @user.name
   end
   
   def parse_response(response)
@@ -90,7 +106,7 @@ class UsersController < ApplicationController
     end
     
     def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_path) unless current_user?(@user)
+      @user = Client.find(params[:id])
+      redirect_to(root_path) unless current_user.email == @user.email
     end
 end

@@ -1,0 +1,6 @@
+<nav class="round">
+  <ul>
+    <li><%= link_to current_user.name, loaduserprofile_path(current_user.id) %></li>
+    <li><%= link_to current_user.microposts.count, showuser_path(current_user.id)  %>    
+  </ul>
+</nav>

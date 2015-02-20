@@ -3,3 +3,13 @@ user_data["name"]
 
 -->
 <h1><%= "Welcome, #{current_user.firstname} #{current_user.name} you are successfully logged in!" %></h1>
+<h3>Here are your news listed!</h3>
+<ul>
+  <% unless current_user.microposts.empty? %>
+    <% current_user.microposts.each do |mp| %>
+      <li><%= mp.content%>
+      <li><%= link_to mp.content, microposts_path(mp.id) %></li>
+    <% end %>
+  <% end %>
+</ul>
+ 

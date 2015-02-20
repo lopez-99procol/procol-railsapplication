@@ -1,8 +1,9 @@
 
 <h1><%= "Welcome!"%></h1>
 <h3><%= "Please #{@user.nil? ? 'create' : 'edit'}  your profile here!"%></h3>
+<%= "(*)  Password (+confirmation) is required." if !@user.nil?%>
 
-<%= form_tag(@user.nil? ? userssignup_path : saveuserprofile_path, method: "post") do %>
+<%= form_tag(@user.nil? ? userssignup_path : saveuserprofile_path(@user.id), method: "post") do %>
  <!-- render 'shared/error_messages.html.erb'//-->
   <div class="field">
     <%= label_tag 'name'%><br>
@@ -21,15 +22,14 @@
     <%= text_field(:user, :bio) %><br>
   </div>
   <div class="field">
-    <%= label_tag 'password'%><br>
+    <%= label_tag 'password (*)'%><br>
     <%= password_field(:user, :password) %><br>
   </div>
   <div class="field">
-    <%= label_tag 'confirmation'%><br>
+    <%= label_tag 'confirmation (*)'%><br>
     <%= password_field(:user, :password_confirmation) %><br>
   </div>
   <div class="actions">
     <%= submit_tag(@user.nil? ? "Sign up" : "Update") %>
   </div>
-
 <% end %>

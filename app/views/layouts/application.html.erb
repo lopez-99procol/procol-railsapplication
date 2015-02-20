@@ -8,6 +8,10 @@
 <body>
   <div class="container">
     <%= render 'layouts/header' %>
+    <br><br>
+    <% if !current_user.nil? %>
+      <%= render 'layouts/user_header'%>
+    <% end %>
     <br>
     <section class="round">
       <% flash.each do |key,value| %>

@@ -7,7 +7,8 @@ class Client
 
   def self.find(id)
     request = "#{base_uri}/api/v1/users/#{id}"
-      do_request(request, 'get', nil, "load_user")
+    puts "client.find(#{id})" #{}":request(#{request})"
+    do_request(request, 'get', nil, "load_user")
   end
 
   def self.find_by_name(name)
@@ -26,6 +27,18 @@ class Client
     request = "#{base_uri}/api/v1/users/#{user_id}/navigation"
     puts "get_navigation.request => #{request}"
     self.do_request(request, 'get', nil, "load_navigation")
+  end
+
+  def self.get_microposts(user_id)
+    request = "#{base_uri}/api/v1/users/#{user_id}/microposts"
+    puts "get_microposts.request => #{request}"
+    self.do_request(request, 'get', nil, "load_microposts")
+  end
+
+  def self.get_micropost(id)
+    request = "#{base_uri}/api/v1/microposts/#{id}"
+    puts "get_micropost.request => #{request}"
+    do_request(request, 'get', nil, "load_micropost")
   end
 
   def self.create(attributes)
@@ -107,6 +120,49 @@ class Client
       navigations.push(Navigation.new().from_json(json_data))
     end
     navigations
+  end
+  
+  def self.load_microposts(response_body)
+    # to be implemented
+    microposts = []
+    
+    puts "rb: #{response_body}"
+    
+    # Transform to JSON     
+    rb_hash = JSON.parse(response_body)
+    
+    # Print JSON result
+    rb_hash.each do |pair| 
+    
+      # Modify JSON Hash
+      #rb_hash.delete("created_at")
+      #rb_hash.delete("updated_at")
+    
+      puts
+      puts "load_microposts pair[#{pair}]"
+    
+      # Put the hash back to json string format
+      json_data = pair.to_json
+    
+      #puts "user.to_s = #{user.to_s}"
+      microposts.push(Micropost.new().from_json(json_data))
+    end
+    microposts
+    
+  end
+  
+  def self.load_micropost(response_body)
+    # to be implemented
+    microposts = []
+    
+    puts "rb: #{response_body}"
+    
+    # Transform to JSON     
+    rb_hash = JSON.parse(response_body)
+    #puts "user.to_s = #{user.to_s}"
+    micropost = Micropost.new().from_json(rb_hash.to_json)
+    micropost
+    
   end
   
   # do_request makes the request and the response handling against the sinatrausers-webservice

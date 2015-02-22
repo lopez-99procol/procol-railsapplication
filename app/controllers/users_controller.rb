@@ -69,7 +69,7 @@ class UsersController < ApplicationController
     id = params[:id]
     puts "microposts:params[#{id}]"
     @micropost = Client.get_micropost(id)
-    puts "micropots:micropost(#{@micropost})"
+    puts "micropost:micropost(#{@micropost})"
   end
   
   # Zeigt die User Daten an und

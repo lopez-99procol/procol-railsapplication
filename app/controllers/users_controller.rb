@@ -101,10 +101,6 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name,:firstname,:email,:bio,:password,:password_confirmation,:encrypted_password,:salt,navigation: [:label, :link])
     end
     
-    def authenticate
-      deny_access unless signed_in?
-    end
-    
     def correct_user
       @user = Client.find(params[:id])
       redirect_to(root_path) unless current_user.email == @user.email

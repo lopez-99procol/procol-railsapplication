@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get 'users/navigation/:id',             to: 'users#navigation',       as: 'usernavigation'
   get 'demo',                             to: 'pages#demo',             as: 'demo'
   get 'microposts/:id',                   to: 'users#microposts',       as: 'microposts'
+  post 'microposts',                       to: 'microposts#create',      as: 'newmicroposts'
   
   
   #get 'users/signup',     to: 'users#signup',   as: 'signupuser'

@@ -1,0 +1,10 @@
+<%= form_tag(newmicroposts_path, method: "post") do %>
+  <div class="field">
+    <%= label_tag 'news'%><br>
+    <%= text_area(:micropost, :content) %><br>
+  </div>
+  <div class="actions">
+    <%= submit_tag("Submit") %>
+  </div>
+    
+<% end %>

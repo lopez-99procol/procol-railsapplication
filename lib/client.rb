@@ -40,6 +40,12 @@ class Client
     puts "get_micropost.request => #{request}"
     do_request(request, 'get', nil, "load_micropost")
   end
+  
+  def self.create_micropost(user_id, attributes)
+    puts "create_micropost:attributes(#{attributes[:micropost]})"
+    request = "#{base_uri}/api/v1/users/#{user_id}/microposts"
+    do_request(request, 'post', attributes[:micropost], nil)
+  end
 
   def self.create(attributes)
     request = "#{base_uri}/api/v1/users"
